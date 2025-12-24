@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Crimson_Text, Inter } from "next/font/google";
 import Link from "next/link";
 import { AddToHomeScreen } from "@/components/AddToHomeScreen";
+import { BottomNav } from "@/components/BottomNav";
 import "./globals.css";
 
 const crimson = Crimson_Text({
@@ -73,9 +74,12 @@ export default function RootLayout({
         </nav>
 
         {/* Main content with padding for nav */}
-        <main className="pt-16">
+        <main className="pt-16 pb-20 md:pb-0">
           {children}
         </main>
+
+        {/* Bottom navigation for mobile */}
+        <BottomNav />
 
         {/* iOS Add to Home Screen prompt */}
         <AddToHomeScreen />

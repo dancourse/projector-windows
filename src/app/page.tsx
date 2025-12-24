@@ -149,7 +149,7 @@ export default function HomePage() {
       </section>
 
       {/* Theme Categories */}
-      <section className="py-12 px-4 bg-gradient-to-b from-stone-900/50 to-transparent">
+      <section id="themes" className="py-12 px-4 bg-gradient-to-b from-stone-900/50 to-transparent scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-serif text-2xl font-bold flex items-center gap-2 text-amber-100">
