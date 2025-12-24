@@ -74,9 +74,24 @@ export default function RootLayout({
         </nav>
 
         {/* Main content with padding for nav */}
-        <main className="pt-16 pb-20 md:pb-0">
+        <main className="pt-16 pb-24 md:pb-0">
           {children}
         </main>
+
+        {/* Footer */}
+        <footer className="py-6 px-4 border-t border-amber-900/20 bg-stone-900/50 mb-16 md:mb-0">
+          <div className="max-w-7xl mx-auto text-center text-stone-500 text-sm">
+            Created by Dan Course,{' '}
+            <a
+              href="https://www.linkedin.com/company/smart-forge/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              Smart Forge LTD
+            </a>
+          </div>
+        </footer>
 
         {/* Bottom navigation for mobile */}
         <BottomNav />
