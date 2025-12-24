@@ -94,7 +94,7 @@ export default function ThemePage({ params }: PageProps) {
         {/* Back link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-stone-400 hover:text-amber-200 transition-colors mb-8"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -104,8 +104,8 @@ export default function ThemePage({ params }: PageProps) {
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2">{themeName || 'Loading...'}</h1>
-          <p className="text-zinc-400">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2 text-amber-100">{themeName || 'Loading...'}</h1>
+          <p className="text-stone-400">
             Discover cosy ambience videos perfect for your projector
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function ThemePage({ params }: PageProps) {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="aspect-video bg-zinc-800 rounded-xl animate-pulse" />
+              <div key={i} className="aspect-video bg-stone-800/50 rounded-xl animate-pulse" />
             ))}
           </div>
         ) : videos.length > 0 ? (
@@ -130,10 +130,10 @@ export default function ThemePage({ params }: PageProps) {
           </div>
         ) : (
           <div className="text-center py-20">
-            <p className="text-zinc-400 text-lg">No videos found for this theme.</p>
+            <p className="text-stone-400 text-lg">No videos found for this theme.</p>
             <Link
               href="/"
-              className="inline-block mt-4 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-full transition-colors"
+              className="inline-block mt-4 px-6 py-3 bg-amber-600 hover:bg-amber-500 text-stone-950 font-medium rounded-full transition-colors"
             >
               Back to Home
             </Link>

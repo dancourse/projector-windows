@@ -34,7 +34,7 @@ export function VideoCard({
 
   return (
     <div
-      className="relative group cursor-pointer rounded-xl overflow-hidden bg-zinc-900 transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-amber-500/50"
+      className="relative group cursor-pointer rounded-xl overflow-hidden bg-stone-900 ring-1 ring-amber-900/20 transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-amber-500/50"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleWatch}
@@ -49,17 +49,17 @@ export function VideoCard({
 
         {/* Overlay on hover */}
         <div
-          className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-stone-950/70 flex items-center justify-center transition-opacity duration-300 ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <div className="text-center">
-            <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center mx-auto mb-2">
-              <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 rounded-full bg-amber-600 flex items-center justify-center mx-auto mb-2">
+              <svg className="w-8 h-8 text-stone-950 ml-1" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>
-            <p className="text-white text-sm font-medium">Watch on YouTube</p>
+            <p className="text-amber-100 text-sm font-medium">Watch on YouTube</p>
           </div>
         </div>
 
@@ -68,8 +68,8 @@ export function VideoCard({
           onClick={handleFavourite}
           className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
             favourited
-              ? 'bg-red-500 text-white'
-              : 'bg-black/50 text-white hover:bg-red-500'
+              ? 'bg-rose-500 text-white'
+              : 'bg-stone-900/70 text-stone-200 hover:bg-rose-500 hover:text-white'
           }`}
         >
           <svg
@@ -89,9 +89,9 @@ export function VideoCard({
       </div>
 
       {/* Info */}
-      <div className="p-4">
-        <h3 className="text-white font-medium text-sm line-clamp-2 mb-1">{title}</h3>
-        <p className="text-zinc-400 text-xs">{channel}</p>
+      <div className="p-4 bg-gradient-to-t from-stone-900 to-stone-900/80">
+        <h3 className="text-stone-100 font-medium text-sm line-clamp-2 mb-1">{title}</h3>
+        <p className="text-stone-500 text-xs">{channel}</p>
       </div>
     </div>
   );

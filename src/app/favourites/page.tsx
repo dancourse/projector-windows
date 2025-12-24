@@ -42,7 +42,7 @@ export default function FavouritesPage() {
         {/* Back link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-stone-400 hover:text-amber-200 transition-colors mb-8"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -52,10 +52,10 @@ export default function FavouritesPage() {
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 flex items-center gap-3">
-            <span className="text-red-500">❤️</span> Your Favourites
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2 flex items-center gap-3 text-amber-100">
+            <span>❤️</span> Your Favourites
           </h1>
-          <p className="text-zinc-400">
+          <p className="text-stone-400">
             Your saved ambience videos, ready to cast to your projector
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function FavouritesPage() {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="aspect-video bg-zinc-800 rounded-xl animate-pulse" />
+              <div key={i} className="aspect-video bg-stone-800/50 rounded-xl animate-pulse" />
             ))}
           </div>
         ) : favourites.length > 0 ? (
@@ -84,13 +84,13 @@ export default function FavouritesPage() {
         ) : (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">💔</div>
-            <h2 className="text-xl font-semibold mb-2">No favourites yet</h2>
-            <p className="text-zinc-400 mb-6">
+            <h2 className="text-xl font-semibold mb-2 text-stone-200">No favourites yet</h2>
+            <p className="text-stone-500 mb-6">
               Start exploring themes and save your favourite videos
             </p>
             <Link
               href="/"
-              className="inline-block px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-full transition-colors"
+              className="inline-block px-6 py-3 bg-amber-600 hover:bg-amber-500 text-stone-950 font-medium rounded-full transition-colors"
             >
               Browse Themes
             </Link>

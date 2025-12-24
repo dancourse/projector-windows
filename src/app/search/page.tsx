@@ -74,7 +74,7 @@ function SearchResults() {
         {/* Back link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-stone-400 hover:text-amber-200 transition-colors mb-8"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -90,10 +90,10 @@ function SearchResults() {
         {/* Results header */}
         {query && (
           <div className="mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold mb-2">
+            <h1 className="font-serif text-2xl sm:text-3xl font-bold mb-2 text-amber-100">
               Search results for &ldquo;{query}&rdquo;
             </h1>
-            <p className="text-zinc-400">
+            <p className="text-stone-400">
               {loading ? 'Searching...' : `Found ${videos.length} videos`}
             </p>
           </div>
@@ -103,7 +103,7 @@ function SearchResults() {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="aspect-video bg-zinc-800 rounded-xl animate-pulse" />
+              <div key={i} className="aspect-video bg-stone-800/50 rounded-xl animate-pulse" />
             ))}
           </div>
         ) : videos.length > 0 ? (
@@ -120,16 +120,16 @@ function SearchResults() {
         ) : query ? (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🔍</div>
-            <h2 className="text-xl font-semibold mb-2">No results found</h2>
-            <p className="text-zinc-400 mb-6">
+            <h2 className="text-xl font-semibold mb-2 text-stone-200">No results found</h2>
+            <p className="text-stone-500 mb-6">
               Try searching for something else, like &ldquo;Hogwarts rain&rdquo; or &ldquo;medieval castle&rdquo;
             </p>
           </div>
         ) : (
           <div className="text-center py-20">
-            <div className="text-6xl mb-4">✨</div>
-            <h2 className="text-xl font-semibold mb-2">Search for ambience videos</h2>
-            <p className="text-zinc-400">
+            <div className="text-6xl mb-4 animate-flicker">✨</div>
+            <h2 className="text-xl font-semibold mb-2 text-stone-200">Search for ambience videos</h2>
+            <p className="text-stone-500">
               Try &ldquo;Hogwarts window rain&rdquo;, &ldquo;cosy autumn cabin&rdquo;, or &ldquo;LOTR Shire&rdquo;
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function SearchPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="aspect-video bg-zinc-800 rounded-xl animate-pulse" />
+              <div key={i} className="aspect-video bg-stone-800/50 rounded-xl animate-pulse" />
             ))}
           </div>
         </div>

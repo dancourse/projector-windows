@@ -84,6 +84,12 @@ export const defaultThemes: DefaultTheme[] = [
     searchQuery: 'Ambient Worlds Harry Potter LOTR ambience',
     icon: '🌍',
   },
+  {
+    name: 'Seasonal Ambience',
+    slug: 'seasonal-ambience',
+    searchQuery: 'Seasonal Ambience cosy autumn winter rain',
+    icon: '🌿',
+  },
 ];
 
 // Curated video IDs from the user
