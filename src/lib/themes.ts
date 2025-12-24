@@ -37,6 +37,12 @@ export const defaultThemes: DefaultTheme[] = [
     icon: '🍺',
   },
   {
+    name: 'Hufflepuff Common Room',
+    slug: 'hufflepuff',
+    searchQuery: 'Hufflepuff common room ambience cosy fireplace rain',
+    icon: '🦡',
+  },
+  {
     name: 'Cosy Autumn',
     slug: 'autumn',
     searchQuery: 'cosy autumn rain window UK ambience',
@@ -71,12 +77,6 @@ export const defaultThemes: DefaultTheme[] = [
     slug: 'fantaisia',
     searchQuery: 'FanTaisia Ambience dark fantasy castle window',
     icon: '🌙',
-  },
-  {
-    name: 'Slytherin Dungeon',
-    slug: 'slytherin',
-    searchQuery: 'Slytherin common room dungeon ambience underwater',
-    icon: '🐍',
   },
   {
     name: 'Ambient Worlds',
