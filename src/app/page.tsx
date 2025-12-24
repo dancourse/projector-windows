@@ -1,65 +1,214 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import { ThemeCard } from '@/components/ThemeCard';
+import { VideoCard } from '@/components/VideoCard';
+import { SearchBar } from '@/components/SearchBar';
+import { AddThemeModal } from '@/components/AddThemeModal';
+import { defaultThemes, curatedVideos } from '@/lib/themes';
+import type { YouTubeVideo } from '@/lib/youtube';
+
+interface CustomTheme {
+  id: number;
+  name: string;
+  slug: string;
+  searchQuery: string;
+}
+
+export default function HomePage() {
+  const [featuredVideos, setFeaturedVideos] = useState<YouTubeVideo[]>([]);
+  const [customThemes, setCustomThemes] = useState<CustomTheme[]>([]);
+  const [favouriteIds, setFavouriteIds] = useState<Set<string>>(new Set());
+  const [showAddTheme, setShowAddTheme] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch featured videos (Hogwarts theme by default)
+    async function fetchFeatured() {
+      try {
+        const response = await fetch('/api/youtube?q=Hogwarts+castle+window+rain+ambience&limit=6');
+        const data = await response.json();
+        setFeaturedVideos(data.videos || []);
+      } catch (error) {
+        console.error('Error fetching featured videos:', error);
+      }
+      setLoading(false);
+    }
+
+    // Fetch custom themes
+    async function fetchThemes() {
+      try {
+        const response = await fetch('/api/themes');
+        const data = await response.json();
+        setCustomThemes(data.customThemes || []);
+      } catch (error) {
+        console.error('Error fetching themes:', error);
+      }
+    }
+
+    // Fetch favourites
+    async function fetchFavourites() {
+      try {
+        const response = await fetch('/api/favourites');
+        const data = await response.json();
+        const ids = new Set<string>((data.favourites || []).map((f: { videoId: string }) => f.videoId));
+        setFavouriteIds(ids);
+      } catch (error) {
+        console.error('Error fetching favourites:', error);
+      }
+    }
+
+    fetchFeatured();
+    fetchThemes();
+    fetchFavourites();
+  }, []);
+
+  const handleToggleFavourite = async (id: string, title: string, thumbnail: string, channel: string) => {
+    const isFavourited = favouriteIds.has(id);
+
+    if (isFavourited) {
+      await fetch(`/api/favourites?videoId=${id}`, { method: 'DELETE' });
+      setFavouriteIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    } else {
+      await fetch('/api/favourites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoId: id, title, thumbnail, channel }),
+      });
+      setFavouriteIds((prev) => new Set(prev).add(id));
+    }
+  };
+
+  const handleAddTheme = async (name: string, searchQuery: string) => {
+    try {
+      const response = await fetch('/api/themes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, searchQuery }),
+      });
+      const data = await response.json();
+      if (data.theme) {
+        setCustomThemes((prev) => [...prev, data.theme]);
+      }
+    } catch (error) {
+      console.error('Error adding theme:', error);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 px-4 overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-900/20 via-zinc-950 to-zinc-950" />
+
+        <div className="relative max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+            <span className="text-amber-400">Cosy Ambience</span> for Your Projector
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
+            Transform your wall into a window to Hogwarts, medieval castles, and magical worlds.
+            Find the perfect ambience, favourite it, and cast to your projector.
           </p>
+
+          <SearchBar />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Featured Videos */}
+      <section className="py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <span>✨</span> Featured Ambience
+          </h2>
+
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="aspect-video bg-zinc-800 rounded-xl animate-pulse" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredVideos.map((video) => (
+                <VideoCard
+                  key={video.id}
+                  {...video}
+                  isFavourited={favouriteIds.has(video.id)}
+                  onToggleFavourite={handleToggleFavourite}
+                />
+              ))}
+            </div>
+          )}
         </div>
-      </main>
+      </section>
+
+      {/* Theme Categories */}
+      <section className="py-12 px-4 bg-zinc-900/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <span>🎨</span> Browse by Theme
+            </h2>
+            <button
+              onClick={() => setShowAddTheme(true)}
+              className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-full transition-colors flex items-center gap-2"
+            >
+              <span>+</span> Add Theme
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {defaultThemes.map((theme) => (
+              <ThemeCard key={theme.slug} {...theme} />
+            ))}
+            {customThemes.map((theme) => (
+              <ThemeCard
+                key={theme.slug}
+                name={theme.name}
+                slug={theme.slug}
+                icon="🎭"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Curated Picks - These are the user's selected videos */}
+      <section className="py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <span>💎</span> Curated Picks
+          </h2>
+          <p className="text-zinc-400 mb-6">Hand-picked videos perfect for your projector setup.</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {curatedVideos.map((videoId) => (
+              <div
+                key={videoId}
+                className="aspect-video bg-zinc-800 rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-amber-500/50 transition-all hover:scale-105"
+                onClick={() => window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank')}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                  alt="Curated video"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <AddThemeModal
+        isOpen={showAddTheme}
+        onClose={() => setShowAddTheme(false)}
+        onAdd={handleAddTheme}
+      />
     </div>
   );
 }
