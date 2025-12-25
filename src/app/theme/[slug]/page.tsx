@@ -1,145 +1,62 @@
-'use client';
-
-import { useState, useEffect, use } from 'react';
-import Link from 'next/link';
-import { VideoCard } from '@/components/VideoCard';
+import type { Metadata } from 'next';
+import { ThemePageContent } from '@/components/ThemePageContent';
 import { defaultThemes } from '@/lib/themes';
-import type { YouTubeVideo } from '@/lib/youtube';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default function ThemePage({ params }: PageProps) {
-  const { slug } = use(params);
-  const [videos, setVideos] = useState<YouTubeVideo[]>([]);
-  const [favouriteIds, setFavouriteIds] = useState<Set<string>>(new Set());
-  const [loading, setLoading] = useState(true);
-  const [themeName, setThemeName] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+// Generate metadata for social sharing
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const theme = defaultThemes.find((t) => t.slug === slug);
 
-  useEffect(() => {
-    // Find theme by slug
-    const defaultTheme = defaultThemes.find((t) => t.slug === slug);
+  const themeName = theme?.name || 'Theme';
+  const themeIcon = theme?.icon || '🪟';
 
-    if (defaultTheme) {
-      setThemeName(defaultTheme.name);
-      setSearchQuery(defaultTheme.searchQuery);
-    } else {
-      // Fetch custom theme from API
-      fetch('/api/themes')
-        .then((res) => res.json())
-        .then((data) => {
-          const customTheme = data.customThemes?.find((t: { slug: string }) => t.slug === slug);
-          if (customTheme) {
-            setThemeName(customTheme.name);
-            setSearchQuery(customTheme.searchQuery);
-          }
-        });
-    }
-  }, [slug]);
+  const title = `${themeName} - Projector Windows`;
+  const description = `${themeIcon} Discover cosy ${themeName} ambience videos perfect for your projector. Transform your wall into a magical window!`;
 
-  useEffect(() => {
-    if (!searchQuery) return;
+  // Base URL - update this to your production domain
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://projector-windows.vercel.app';
+  const pageUrl = `${baseUrl}/theme/${slug}`;
 
-    async function fetchVideos() {
-      try {
-        const response = await fetch(`/api/youtube?q=${encodeURIComponent(searchQuery)}&limit=12`);
-        const data = await response.json();
-        setVideos(data.videos || []);
-      } catch (error) {
-        console.error('Error fetching videos:', error);
-      }
-      setLoading(false);
-    }
-
-    async function fetchFavourites() {
-      try {
-        const response = await fetch('/api/favourites');
-        const data = await response.json();
-        const ids = new Set<string>((data.favourites || []).map((f: { videoId: string }) => f.videoId));
-        setFavouriteIds(ids);
-      } catch (error) {
-        console.error('Error fetching favourites:', error);
-      }
-    }
-
-    fetchVideos();
-    fetchFavourites();
-  }, [searchQuery]);
-
-  const handleToggleFavourite = async (id: string, title: string, thumbnail: string, channel: string) => {
-    const isFavourited = favouriteIds.has(id);
-
-    if (isFavourited) {
-      await fetch(`/api/favourites?videoId=${id}`, { method: 'DELETE' });
-      setFavouriteIds((prev) => {
-        const next = new Set(prev);
-        next.delete(id);
-        return next;
-      });
-    } else {
-      await fetch('/api/favourites', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ videoId: id, title, thumbnail, channel }),
-      });
-      setFavouriteIds((prev) => new Set(prev).add(id));
-    }
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: pageUrl,
+      siteName: 'Projector Windows',
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${themeName} - Cosy ambience videos`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/og-image.png`],
+    },
   };
+}
 
-  return (
-    <div className="min-h-screen py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Back link */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-stone-400 hover:text-amber-200 transition-colors mb-8"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to themes
-        </Link>
+// Generate static params for default themes
+export async function generateStaticParams() {
+  return defaultThemes.map((theme) => ({
+    slug: theme.slug,
+  }));
+}
 
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2 text-amber-100">{themeName || 'Loading...'}</h1>
-          <p className="text-stone-400">
-            Discover cosy ambience videos perfect for your projector
-          </p>
-        </div>
+export default async function ThemePage({ params }: PageProps) {
+  const { slug } = await params;
 
-        {/* Videos Grid */}
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="aspect-video bg-stone-800/50 rounded-xl animate-pulse" />
-            ))}
-          </div>
-        ) : videos.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {videos.map((video) => (
-              <VideoCard
-                key={video.id}
-                {...video}
-                isFavourited={favouriteIds.has(video.id)}
-                onToggleFavourite={handleToggleFavourite}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20">
-            <p className="text-stone-400 text-lg">No videos found for this theme.</p>
-            <Link
-              href="/"
-              className="inline-block mt-4 px-6 py-3 bg-amber-600 hover:bg-amber-500 text-stone-950 font-medium rounded-full transition-colors"
-            >
-              Back to Home
-            </Link>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  return <ThemePageContent slug={slug} />;
 }
