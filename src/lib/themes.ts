@@ -92,12 +92,15 @@ export const defaultThemes: DefaultTheme[] = [
   },
 ];
 
-// Curated video IDs from the user
+// Curated video IDs - refreshed Feb 2026
 export const curatedVideos = [
-  '4H23SVTauHU',
-  'HwLhOapx4dE',
-  'whgZ07DeEX4',
-  'ZW01JFx7E1w',
-  'JXmde9n2Dm4',
+  '4H23SVTauHU', // Hogwarts castle window
+  'HwLhOapx4dE', // Medieval castle rain
+  'whgZ07DeEX4', // D&D tavern ambience
+  'ZW01JFx7E1w', // Cozy fireplace
+  'JXmde9n2Dm4', // Fantasy library
   'q_8FXTPDj-A', // Gryffindor Common Room
+  'eGZh_RlGPXo', // Hobbit Hole cozy
+  'V4z4DE8LHzQ', // Winter cabin snow
+  '7v3F8W9Y8hI', // LOTR Rivendell
 ];
