@@ -1,4 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projector Windows
+
+A web app for creating atmospheric projector window displays - perfect for ambiance, D&D sessions, work/study backgrounds, and more.
+
+**Live Site:** https://projector-windows.netlify.app
+
+## User Survey
+
+We're exploring ways to improve Projector Windows and would love your feedback!
+
+**Take the survey:** https://projector-windows.netlify.app/survey.html (5 minutes)
+
+The survey helps us understand:
+- Which features you'd find most valuable
+- Pricing preferences for premium content
+- Content partnership opportunities
+- Your top feature requests
+
+For details on survey integration and data collection, see [SURVEY-INTEGRATION.md](./SURVEY-INTEGRATION.md).
 
 ## Getting Started
 

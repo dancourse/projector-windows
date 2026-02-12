@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projector Windows Survey - Help Shape Our Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #0c0a09;
+            color: #fafaf9;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1c1917;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 0 60px rgba(180, 83, 9, 0.15);
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: 2.5em;
+            margin-bottom: 16px;
+            color: #fbbf24;
+        }
+
+        .intro {
+            font-size: 1.1em;
+            color: #d6d3d1;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(120, 53, 15, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #fbbf24;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #44403c;
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #e7e5e4;
+            font-size: 1.05em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            background: #292524;
+            border: 2px solid #44403c;
+            border-radius: 8px;
+            color: #fafaf9;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #292524;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .checkbox-item:hover,
+        .radio-item:hover {
+            background: #44403c;
+            border-color: #78350f;
+        }
+
+        .checkbox-item input,
+        .radio-item input {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .scale-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .scale-item input[type="radio"] {
+            display: none;
+        }
+
+        .scale-item label {
+            display: block;
+            padding: 12px;
+            background: #292524;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .scale-item input[type="radio"]:checked + label {
+            background: #78350f;
+            border-color: #f59e0b;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .scale-item label:hover {
+            background: #44403c;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #a8a29e;
+            margin-top: 8px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0c0a09;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .thank-you h2 {
+            font-size: 2em;
+            color: #fbbf24;
+            margin-bottom: 20px;
+        }
+
+        .thank-you p {
+            font-size: 1.2em;
+            color: #d6d3d1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .scale {
+                flex-wrap: wrap;
+            }
+
+            .scale-item {
+                flex-basis: calc(20% - 8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="survey-form">
+            <h1>Help Shape Projector Windows</h1>
+
+            <div class="intro">
+                <p>Thanks for using Projector Windows! We're exploring ways to make this tool even better while keeping it sustainable. Your feedback will directly influence what we build next.</p>
+                <p style="margin-top: 12px;"><strong>This survey takes about 5 minutes.</strong></p>
+            </div>
+
+            <form id="monetizationSurvey">
+                <!-- Section 1: Current Usage -->
+                <div class="section">
+                    <h2 class="section-title">1. How You Use Projector Windows</h2>
+
+                    <div class="question">
+                        <label class="question-label">How do you primarily use Projector Windows?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="use-ambiance" name="usage" value="ambiance">
+                                <label for="use-ambiance">Room ambiance / aesthetic vibes</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="use-dnd" name="usage" value="dnd">
+                                <label for="use-dnd">D&D / tabletop gaming atmosphere</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="use-work" name="usage" value="work">
+                                <label for="use-work">Work/study background atmosphere</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="use-party" name="usage" value="party">
+                                <label for="use-party">Parties / events</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="use-sleep" name="usage" value="sleep">
+                                <label for="use-sleep">Sleep / relaxation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="use-other" name="usage" value="other">
+                                <label for="use-other">Other (please specify below)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">How often do you use Projector Windows?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="freq-daily" name="frequency" value="daily">
+                                <label for="freq-daily">Daily</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="freq-weekly" name="frequency" value="weekly">
+                                <label for="freq-weekly">A few times a week</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="freq-monthly" name="frequency" value="monthly">
+                                <label for="freq-monthly">A few times a month</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="freq-rarely" name="frequency" value="rarely">
+                                <label for="freq-rarely">Rarely / special occasions</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Premium Features -->
+                <div class="section">
+                    <h2 class="section-title">2. Premium Features</h2>
+
+                    <div class="question">
+                        <label class="question-label">Which features would you potentially pay for? (Select all that interest you)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-collections" name="features" value="premium-collections">
+                                <label for="feat-collections">Curated premium video collections (high-quality, themed sets)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-offline" name="features" value="offline">
+                                <label for="feat-offline">Offline mode (download videos for offline use)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-playlist" name="features" value="playlist">
+                                <label for="feat-playlist">Custom playlist builder (queue multiple videos)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-controls" name="features" value="controls">
+                                <label for="feat-controls">Advanced controls (brightness, color temperature, filters)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-grid" name="features" value="grid">
+                                <label for="feat-grid">Grid overlay for tabletop gaming</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-notes" name="features" value="notes">
+                                <label for="feat-notes">DM notes / annotations overlay</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-battle" name="features" value="battle">
+                                <label for="feat-battle">Battle sequence playlist automation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="feat-none" name="features" value="none">
+                                <label for="feat-none">None - I prefer everything to stay free</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">What type of curated video collections would you pay for?</label>
+                        <textarea name="collection-ideas" placeholder="e.g., Fantasy taverns, sci-fi spaceship windows, cozy rainy days, underwater scenes, etc."></textarea>
+                    </div>
+                </div>
+
+                <!-- Section 3: Pricing -->
+                <div class="section">
+                    <h2 class="section-title">3. Pricing Preferences</h2>
+
+                    <div class="question">
+                        <label class="question-label">For premium video collections, which pricing model appeals to you most?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="price-onetime-low" name="pricing-model" value="onetime-9.99">
+                                <label for="price-onetime-low">$9.99 one-time purchase per collection</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="price-onetime-mid" name="pricing-model" value="onetime-24.99">
+                                <label for="price-onetime-mid">$24.99 one-time for all premium collections (D&D bundle)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="price-sub-low" name="pricing-model" value="sub-2.99">
+                                <label for="price-sub-low">$2.99/month subscription (access all collections)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="price-sub-mid" name="pricing-model" value="sub-4.99">
+                                <label for="price-sub-mid">$4.99/month subscription (all features + collections)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="price-free" name="pricing-model" value="free">
+                                <label for="price-free">I wouldn't pay - keep it free with ads/donations</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">How much would you pay for a comprehensive D&D/tabletop gaming bundle? (One-time purchase with all gaming features)</label>
+                        <div class="scale">
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-0" name="dnd-price" value="0">
+                                <label for="dnd-0">$0</label>
+                            </div>
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-5" name="dnd-price" value="5">
+                                <label for="dnd-5">$5</label>
+                            </div>
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-10" name="dnd-price" value="10">
+                                <label for="dnd-10">$10</label>
+                            </div>
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-15" name="dnd-price" value="15">
+                                <label for="dnd-15">$15</label>
+                            </div>
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-20" name="dnd-price" value="20">
+                                <label for="dnd-20">$20</label>
+                            </div>
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-25" name="dnd-price" value="25">
+                                <label for="dnd-25">$25</label>
+                            </div>
+                            <div class="scale-item">
+                                <input type="radio" id="dnd-30" name="dnd-price" value="30">
+                                <label for="dnd-30">$30+</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">Would you support the project through voluntary donations (Ko-fi, Buy Me a Coffee)?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="donate-yes" name="donations" value="yes">
+                                <label for="donate-yes">Yes, I'd donate if I could</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="donate-maybe" name="donations" value="maybe">
+                                <label for="donate-maybe">Maybe, if I got something in return (e.g., bonus theme)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="donate-no" name="donations" value="no">
+                                <label for="donate-no">No, I prefer to pay for features directly</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Content & Partnerships -->
+                <div class="section">
+                    <h2 class="section-title">4. Content & Partnerships</h2>
+
+                    <div class="question">
+                        <label class="question-label">Would you be interested in branded themed collections? (e.g., official D&D campaign settings, Netflix/Disney+ themed windows)</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="branded-yes" name="branded" value="yes">
+                                <label for="branded-yes">Yes, if they're high quality</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="branded-neutral" name="branded" value="neutral">
+                                <label for="branded-neutral">Neutral / depends on the brand</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="branded-no" name="branded" value="no">
+                                <label for="branded-no">No, I prefer community-curated content</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">If we partnered with projector brands for affiliate links, would you find that helpful?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="affiliate-yes" name="affiliate" value="yes">
+                                <label for="affiliate-yes">Yes, I'd appreciate buying recommendations</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="affiliate-neutral" name="affiliate" value="neutral">
+                                <label for="affiliate-neutral">Neutral / wouldn't bother me</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="affiliate-no" name="affiliate" value="no">
+                                <label for="affiliate-no">No, I'd prefer no affiliate links</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Open Feedback -->
+                <div class="section">
+                    <h2 class="section-title">5. Your Thoughts</h2>
+
+                    <div class="question">
+                        <label class="question-label">What's the #1 feature or improvement you'd like to see?</label>
+                        <textarea name="top-request" placeholder="Tell us what would make Projector Windows even better for you..." required></textarea>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">Any other feedback or ideas?</label>
+                        <textarea name="additional-feedback" placeholder="We're all ears!"></textarea>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">Email (optional - only if you'd like updates on new features)</label>
+                        <input type="email" name="email" placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Survey</button>
+            </form>
+        </div>
+
+        <div id="thank-you-message" class="thank-you">
+            <h2>Thank You!</h2>
+            <p>Your feedback has been recorded and will help shape the future of Projector Windows.</p>
+            <p style="margin-top: 20px; font-size: 1em;">Your survey ID: <strong id="survey-id"></strong></p>
+            <p style="margin-top: 40px;"><a href="https://projector-windows.netlify.app" style="color: #fbbf24; text-decoration: underline;">Return to Projector Windows</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('monetizationSurvey').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+
+            // Handle regular inputs
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Handle checkboxes
+            const usageChecks = document.querySelectorAll('input[name="usage"]:checked');
+            data.usage = Array.from(usageChecks).map(cb => cb.value);
+
+            const featureChecks = document.querySelectorAll('input[name="features"]:checked');
+            data.features = Array.from(featureChecks).map(cb => cb.value);
+
+            // Generate survey ID
+            const surveyId = 'PW-' + Date.now().toString(36).toUpperCase();
+            data.surveyId = surveyId;
+            data.timestamp = new Date().toISOString();
+
+            // Store in localStorage (in production, this would POST to a backend)
+            const surveys = JSON.parse(localStorage.getItem('projectorWindowsSurveys') || '[]');
+            surveys.push(data);
+            localStorage.setItem('projectorWindowsSurveys', JSON.stringify(surveys));
+
+            // Log to console for developer access
+            console.log('Survey Response:', data);
+
+            // Show thank you message
+            document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('thank-you-message').style.display = 'block';
+            document.getElementById('survey-id').textContent = surveyId;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // In production, you would send this to a backend:
+            // fetch('/api/survey', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // });
+        });
+
+        // Export survey data to console for easy access
+        window.exportSurveyData = function() {
+            const surveys = JSON.parse(localStorage.getItem('projectorWindowsSurveys') || '[]');
+            console.log('All Survey Responses:', surveys);
+            console.log('To download as JSON, copy the array above and save it to a file.');
+            return surveys;
+        };
+
+        console.log('Survey loaded. To export responses later, run: exportSurveyData()');
+    </script>
+</body>
+</html>
