@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { AddToHomeScreen } from "@/components/AddToHomeScreen";
 import { BottomNav } from "@/components/BottomNav";
+import { SupportButton } from "@/components/SupportButton";
 import "./globals.css";
 
 const crimson = Crimson_Text({
@@ -69,14 +70,22 @@ export default function RootLayout({
                 <span className="font-serif font-semibold text-lg hidden sm:inline text-amber-100">Projector Windows</span>
               </Link>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <Link
+                  href="/projectors"
+                  className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-stone-800/80 hover:bg-stone-700 border border-amber-900/20 transition-colors text-sm"
+                >
+                  <span>📽️</span>
+                  <span className="text-amber-100">Projectors</span>
+                </Link>
                 <Link
                   href="/favourites"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-stone-800/80 hover:bg-stone-700 border border-amber-900/20 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-stone-800/80 hover:bg-stone-700 border border-amber-900/20 transition-colors text-sm"
                 >
                   <span>❤️</span>
                   <span className="hidden sm:inline text-amber-100">Favourites</span>
                 </Link>
+                <SupportButton variant="nav" />
               </div>
             </div>
           </div>
@@ -88,17 +97,33 @@ export default function RootLayout({
         </main>
 
         {/* Footer */}
-        <footer className="py-6 px-4 border-t border-amber-900/20 bg-stone-900/50 mb-16 md:mb-0">
-          <div className="max-w-7xl mx-auto text-center text-stone-500 text-sm">
-            Created by Dan Course,{' '}
-            <a
-              href="https://www.linkedin.com/company/smart-forge/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber-400 hover:text-amber-300 transition-colors"
-            >
-              Smart Forge LTD
-            </a>
+        <footer className="py-8 px-4 border-t border-amber-900/20 bg-stone-900/50 mb-16 md:mb-0">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
+              <div className="flex items-center gap-4">
+                <Link href="/projectors" className="text-amber-400 hover:text-amber-300 transition-colors text-sm">
+                  Recommended Projectors
+                </Link>
+                <Link href="/support" className="text-amber-400 hover:text-amber-300 transition-colors text-sm">
+                  Support Us
+                </Link>
+                <Link href="/privacy" className="text-amber-400 hover:text-amber-300 transition-colors text-sm">
+                  Privacy
+                </Link>
+              </div>
+              <SupportButton variant="footer" />
+            </div>
+            <div className="text-center text-stone-500 text-sm">
+              Created by Dan Course,{' '}
+              <a
+                href="https://www.linkedin.com/company/smart-forge/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-400 hover:text-amber-300 transition-colors"
+              >
+                Smart Forge LTD
+              </a>
+            </div>
           </div>
         </footer>
 

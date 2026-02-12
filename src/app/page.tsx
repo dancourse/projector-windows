@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { ThemeCard } from '@/components/ThemeCard';
 import { VideoCard } from '@/components/VideoCard';
 import { SearchBar } from '@/components/SearchBar';
@@ -148,6 +149,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Survey Banner */}
+      <section className="py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-amber-600/20 to-amber-800/20 border border-amber-600/30 rounded-xl p-6 text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-left flex-1">
+                <h3 className="font-semibold text-amber-100 mb-1 flex items-center gap-2">
+                  <span>📋</span> Help Shape Projector Windows
+                </h3>
+                <p className="text-stone-400 text-sm">
+                  Take our 5-minute survey to tell us what features you want most. Your feedback drives what we build next.
+                </p>
+              </div>
+              <a
+                href="/survey.html"
+                className="px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold rounded-full transition-colors whitespace-nowrap"
+              >
+                Take Survey
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Theme Categories */}
       <section id="themes" className="py-12 px-4 bg-gradient-to-b from-stone-900/50 to-transparent scroll-mt-20">
         <div className="max-w-7xl mx-auto">
@@ -201,6 +226,25 @@ export default function HomePage() {
                 />
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projector Recommendations CTA */}
+      <section className="py-12 px-4 bg-gradient-to-b from-stone-900/50 to-transparent">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-amber-900/30 to-stone-800/50 rounded-2xl p-8 border border-amber-900/30 text-center">
+            <div className="text-5xl mb-4">📽️</div>
+            <h2 className="font-serif text-3xl font-bold mb-4 text-amber-100">Need a Projector?</h2>
+            <p className="text-stone-400 mb-6 max-w-2xl mx-auto">
+              We've tested the best projectors for cosy ambience windows. From budget-friendly portable options to premium 4K laser projectors.
+            </p>
+            <Link
+              href="/projectors"
+              className="inline-block px-8 py-3 bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold rounded-full transition-colors hover:shadow-lg hover:shadow-amber-900/50"
+            >
+              View Recommended Projectors
+            </Link>
           </div>
         </div>
       </section>

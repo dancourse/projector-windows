@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projector Windows - Brand Partnership Outreach Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tracker-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tracker-table thead {
+            background: #4a5568;
+            color: white;
+        }
+
+        .tracker-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tracker-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tracker-table tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .tracker-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-not-started {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .status-contacted {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .status-responded {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-accepted {
+            background: #9ae6b4;
+            color: #22543d;
+            font-weight: 700;
+        }
+
+        .status-declined {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .priority-high {
+            color: #e53e3e;
+            font-weight: 700;
+        }
+
+        .priority-medium {
+            color: #dd6b20;
+            font-weight: 600;
+        }
+
+        .priority-low {
+            color: #718096;
+        }
+
+        .link-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            transition: background 0.2s;
+        }
+
+        .link-btn:hover {
+            background: #5a67d8;
+        }
+
+        .notes-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .notes-section h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .notes-section ul {
+            list-style-position: inside;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .action-items {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fffaf0;
+            border-radius: 8px;
+            border-left: 4px solid #dd6b20;
+        }
+
+        .action-items h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .action-items ol {
+            list-style-position: inside;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .timestamp {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .tracker-table {
+                font-size: 12px;
+            }
+
+            .tracker-table th,
+            .tracker-table td {
+                padding: 10px 8px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .stat-card h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Projector Windows - Brand Partnership Outreach</h1>
+        <p class="subtitle">Track partnership applications and communications with projector brands</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>Total Brands</p>
+            </div>
+            <div class="stat-card">
+                <h3>0</h3>
+                <p>Contacted</p>
+            </div>
+            <div class="stat-card">
+                <h3>0</h3>
+                <p>Responded</p>
+            </div>
+            <div class="stat-card">
+                <h3>0</h3>
+                <p>Accepted</p>
+            </div>
+        </div>
+
+        <table class="tracker-table">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Program Type</th>
+                    <th>Commission</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Contact Date</th>
+                    <th>Last Update</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Anker</strong></td>
+                    <td>Affiliate Program</td>
+                    <td>8% (US)</td>
+                    <td class="priority-high">🔥 High</td>
+                    <td><span class="status-badge status-not-started">Not Started</span></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>
+                        <a href="https://www.anker.com/become-an-affiliate" class="link-btn" target="_blank">Apply</a>
+                        <a href="contact-info.md#3-anker" class="link-btn">Details</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>XGIMI</strong></td>
+                    <td>Affiliate + Partnership</td>
+                    <td>5% (US)</td>
+                    <td class="priority-high">🔥 High</td>
+                    <td><span class="status-badge status-not-started">Not Started</span></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>
+                        <a href="https://us.xgimi.com/pages/affiliate-guide" class="link-btn" target="_blank">Apply</a>
+                        <a href="contact-info.md#2-xgimi" class="link-btn">Details</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Nebula</strong></td>
+                    <td>Affiliate / Referral</td>
+                    <td>3.92% / $50</td>
+                    <td class="priority-high">🔥 High</td>
+                    <td><span class="status-badge status-not-started">Not Started</span></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>
+                        <a href="https://www.seenebula.com/affiliate" class="link-btn" target="_blank">Apply</a>
+                        <a href="contact-info.md#1-nebula-anker-brand" class="link-btn">Details</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>BenQ</strong></td>
+                    <td>Tiered Partner Program</td>
+                    <td>Variable</td>
+                    <td class="priority-medium">⭐ Medium</td>
+                    <td><span class="status-badge status-not-started">Not Started</span></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>
+                        <a href="https://www.benq.com/en-us/business/software/solution-partner.html" class="link-btn" target="_blank">Apply</a>
+                        <a href="contact-info.md#4-benq" class="link-btn">Details</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Epson</strong></td>
+                    <td>B2B Partner Program</td>
+                    <td>TBD</td>
+                    <td class="priority-low">📅 Long-term</td>
+                    <td><span class="status-badge status-not-started">Not Started</span></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>
+                        <a href="https://epson.com/epson-partners-program" class="link-btn" target="_blank">Apply</a>
+                        <a href="contact-info.md#5-epson" class="link-btn">Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="action-items">
+            <h3>📋 Next Actions</h3>
+            <ol>
+                <li><strong>Week 1 - Quick Wins:</strong> Apply to Anker, XGIMI, and Nebula affiliate programs (all have simple online applications)</li>
+                <li><strong>Week 1:</strong> Send partnership inquiry email to XGIMI requesting exploratory call for deeper collaboration</li>
+                <li><strong>Week 2:</strong> Submit formal partner application to BenQ with detailed proposal</li>
+                <li><strong>Week 2-3:</strong> LinkedIn outreach to partner managers at all brands</li>
+                <li><strong>Week 3:</strong> Follow up on any non-responses from Week 1 applications</li>
+                <li><strong>Month 2+:</strong> Submit Epson partner inquiry after establishing proof of concept with at least one other brand</li>
+            </ol>
+        </div>
+
+        <div class="notes-section">
+            <h3>📝 Tracking Notes</h3>
+            <ul>
+                <li>Update status badges manually after each contact or response</li>
+                <li>Use pitch templates from <strong>pitch-template.md</strong> for initial outreach</li>
+                <li>Document all responses and feedback in brand-specific notes below this tracker</li>
+                <li>Track commission earnings separately once accepted to programs</li>
+                <li>Consider setting up dedicated email alias for partnership communications</li>
+            </ul>
+        </div>
+
+        <div class="notes-section" style="margin-top: 20px; border-left-color: #48bb78;">
+            <h3>💡 Key Talking Points</h3>
+            <ul>
+                <li><strong>Value Prop:</strong> Projector Windows enhances brand projector experience for Mac users</li>
+                <li><strong>Win-Win:</strong> Your customers get better software support, brand gains visibility among Mac users actively using projectors</li>
+                <li><strong>Non-competing:</strong> Complementary software that creates ecosystem lock-in without competing with hardware</li>
+                <li><strong>Use Cases:</strong> Presentation mode, movie night, gaming setup, teaching/training configurations</li>
+                <li><strong>Immediate Action:</strong> Ready to promote brand immediately and create integration content</li>
+            </ul>
+        </div>
+
+        <!-- Brand-Specific Notes Section -->
+        <div style="margin-top: 30px;">
+            <h2 style="color: #2d3748; margin-bottom: 20px; font-size: 22px;">Brand Communication Log</h2>
+
+            <div style="background: white; padding: 20px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">Anker</h3>
+                <p style="color: #718096; font-size: 14px; margin-bottom: 10px;"><strong>Status:</strong> Not Started</p>
+                <div style="padding: 10px; background: #f7fafc; border-radius: 4px;">
+                    <p style="color: #4a5568; font-size: 14px; font-style: italic;">No communications yet. Action: Apply to affiliate program.</p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">XGIMI</h3>
+                <p style="color: #718096; font-size: 14px; margin-bottom: 10px;"><strong>Status:</strong> Not Started</p>
+                <div style="padding: 10px; background: #f7fafc; border-radius: 4px;">
+                    <p style="color: #4a5568; font-size: 14px; font-style: italic;">No communications yet. Action: Apply to affiliate program + send partnership inquiry email.</p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">Nebula</h3>
+                <p style="color: #718096; font-size: 14px; margin-bottom: 10px;"><strong>Status:</strong> Not Started</p>
+                <div style="padding: 10px; background: #f7fafc; border-radius: 4px;">
+                    <p style="color: #4a5568; font-size: 14px; font-style: italic;">No communications yet. Note: May be covered by Anker affiliate program (same parent company).</p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">BenQ</h3>
+                <p style="color: #718096; font-size: 14px; margin-bottom: 10px;"><strong>Status:</strong> Not Started</p>
+                <div style="padding: 10px; background: #f7fafc; border-radius: 4px;">
+                    <p style="color: #4a5568; font-size: 14px; font-style: italic;">No communications yet. Action: Prepare formal partner application with software solution focus.</p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">Epson</h3>
+                <p style="color: #718096; font-size: 14px; margin-bottom: 10px;"><strong>Status:</strong> Not Started</p>
+                <div style="padding: 10px; background: #f7fafc; border-radius: 4px;">
+                    <p style="color: #4a5568; font-size: 14px; font-style: italic;">No communications yet. Long-term target - reach out after establishing proof of concept with other brands.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="timestamp">
+            <p>Tracker Created: February 12, 2026 | Last Updated: February 12, 2026</p>
+            <p style="margin-top: 5px;">Update this file manually as you make progress with each brand</p>
+        </div>
+    </div>
+
+    <script>
+        // Add date/time display
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleString('en-US', {
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            });
+            console.log('Page loaded at:', timeString);
+        }
+
+        updateTimestamp();
+
+        // Future enhancement: Add ability to update status via JavaScript
+        // For now, manually edit HTML to update status badges and dates
+    </script>
+</body>
+</html>
